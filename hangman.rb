@@ -24,5 +24,5 @@ class Hangman
 			letter == choice ? correct = true : false
 					end
 			correct 
-	ends
+	end
 end
