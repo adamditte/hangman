@@ -24,13 +24,12 @@ until rematch == "quit"
   # Get a word, put the chars into an array, make an array of letters remaining
   dictionary_array.shuffle!
   word = dictionary_array[17]
-  puts word
   word_array = word.chars.to_a
   letters_remaining = dictionary_array[17].chars.to_a
   # Get rid of \r\n
-  # word_array.delete_at(word_array.length-1)
-  # word_array.delete_at(word_array.length-1)
-  word_array.gsub(/\r\n?/, "/n")
+  word_array.delete_at(word_array.length-1)
+  word_array.delete_at(word_array.length-1)
+  # word_array.gsub(/\r\n?/, "/n")
   letters_remaining.delete_at(letters_remaining.length-1)
   letters_remaining.delete_at(letters_remaining.length-1)
 
