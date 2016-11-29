@@ -47,5 +47,15 @@ class TestHangman < Minitest::Test
 			assert_equal(false, game.good_guess?(choice))
 		end
 
+		def test_for_guessed_letters_sorted_into_array
+			game = Hangman.new("superman")
+			game.used_letters = ["s","e","w","a","p"]
+			assert_equal("a, e, p, s, w", game.show_guessed_letters)
+		end
 
+		def test_update_spaces_with_correct_guessed_letter
+			game = Hangman.new("superman")
+			choice = "p"
+			assert_equal("__p_____", game.insert_letter(choice))
+		end
 end

@@ -25,4 +25,15 @@ class Hangman
 					end
 			correct 
 	end
+
+		def insert_letter(choice)
+		(0...@word.length).zip(@word.scan(/\w/)) do |index,letter|
+			  letter == choice ? @spaces[index] = letter : false
+		 end
+		@spaces
+		end
+
+		def show_guessed_letters
+			@used_letters.sort.join(", ")
+		end
 end
