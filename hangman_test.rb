@@ -36,6 +36,8 @@ class TestHangman < Minitest::Test
 		end
 
 		def test_for_guess_that_includes_correct_letter
+			aaa
+
 
 
 end
