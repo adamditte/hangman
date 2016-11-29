@@ -35,9 +35,17 @@ class TestHangman < Minitest::Test
 			assert_equal("________", game.spaces)
 		end
 
-		def test_for_guess_that_includes_correct_letter
-			
+		def test_for_correct_letter_returns_true_on_good_guess
+			game = Hangman.new("superman")
+			choice = "p"
+			assert_equal(true, game.good_guess?(choice))
+		end
 
+		def test_for_incorrect_letter_returns_false_on_good_guess
+			game = Hangman.new("superman")
+			choice = "z"
+			assert_equal(false, game.good_guess?(choice))
+		end
 
 
 end
