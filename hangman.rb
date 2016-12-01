@@ -18,6 +18,12 @@ class Hangman
 			@used_letters << choice
     end
 
+	def bad_guess(choice)
+			if @word.exclude?(choice)
+				@bad_guesses = @bad_guesses - 1
+			end
+	end
+
   	def good_guess?(choice)
 			correct = false
 			@word.scan(/\w/) do |letter|
@@ -38,6 +44,10 @@ class Hangman
 		end
 
 		def show_board
+			@spacea.scan(/_|\w/).join(" ")
+		end
 			
-
+		def loser?
+			loser = bad_guesses = 0
+		end
 end

@@ -58,4 +58,22 @@ class TestHangman < Minitest::Test
 			choice = "p"
 			assert_equal("__p_____", game.insert_letter(choice))
 		end
+
+		def test_update_multiple_spaces_with_multiple_correct_guess
+			game = Hangman.new("mississippi")
+			choice = "s"
+			assert_equal("__ss_ss____", game.insert_letter(choice))
+		end
+
+		def test_do_not_update_board_with_incorrect_guess
+			game = Hangman.new("dog")
+			choice = "z"
+			assert_equal("___", game.insert_letter(choice))
+		end
+
+		def test_bad_guess_takes_chance_away
+			game = Hangman.new("dog")
+			choice = "z"
+			assert_equal(9, game.bad_guess(choice))
+		end
 end
