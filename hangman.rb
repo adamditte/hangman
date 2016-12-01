@@ -10,31 +10,29 @@ class Hangman
 			@used_letters = []
     end
 
-    def used_letters?(choice)
-			@used_letters.include? choice 
+    def used_letters?(guess)
+			@used_letters.include? guess 
     end
 
-    def update_letters(choice)
-			@used_letters << choice
+    def update_letters(guess)
+			@used_letters << guess
     end
 
-	def bad_guess(choice)
-			if @word.exclude?(choice)
-				@bad_guesses = @bad_guesses - 1
-			end
+	def bad_guess(guess)
+			@bad_guesses -= 1
 	end
 
-  	def good_guess?(choice)
+  	def good_guess?(guess)
 			correct = false
 			@word.scan(/\w/) do |letter|
-			letter == choice ? correct = true : false
+			letter == guess ? correct = true : false
 					end
 			correct 
 	end
 
-		def insert_letter(choice)
+		def insert_letter(guess)
 		(0...@word.length).zip(@word.scan(/\w/)) do |index,letter|
-			  letter == choice ? @spaces[index] = letter : false
+			  letter == guess ? @spaces[index] = letter : false
 			end
 			@spaces
 		end
@@ -44,10 +42,24 @@ class Hangman
 		end
 
 		def show_board
-			@spacea.scan(/_|\w/).join(" ")
+			@spaces.scan(/_|\w/).join(" ")
 		end
 			
-		def loser?
-			loser = bad_guesses = 0
+		def make_move(guess)
+			update_guessed(guess)
+			if good_guess?(guess)
+				insert_letter(guess)
+			else
+				bad_guess
+			end
 		end
+		
+		def loser?
+			@bad_guesses == 0
+		end
+
+		def winner?
+			@word == @spaces
+		end
+
 end

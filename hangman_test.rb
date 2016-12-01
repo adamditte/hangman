@@ -11,23 +11,23 @@ class TestHangman < Minitest::Test
 
     def test_to_see_if_used_letter_gets_used
     	game = Hangman.new("gAmes")
-			choice = "a"
+			guess = "a"
 			game.used_letters = ["a"]
-			assert_equal(true, game.used_letters?(choice))
+			assert_equal(true, game.used_letters?(guess))
     end
 
     def test_check_to_see_if_empty_array_returns_false
 			game = Hangman.new("gAmes")
-			choice = "a"
+			guess = "a"
 			game.used_letters = []
-			assert_equal(false, game.used_letters?(choice))
+			assert_equal(false, game.used_letters?(guess))
     end
 
     def test_that_bad_guess_letter_goes_into_used_letters_array
 			game = Hangman.new("gAmes")
 			game.used_letters = ["a"]
-			choice = "b"
-			assert_equal(["a","b"], game.update_letters(choice))
+			guess = "b"
+			assert_equal(["a","b"], game.update_letters(guess))
     end
 		
 		def test_create_correct_number_of_spaces_for_word
@@ -37,14 +37,14 @@ class TestHangman < Minitest::Test
 
 		def test_for_correct_letter_returns_true_on_good_guess
 			game = Hangman.new("superman")
-			choice = "p"
-			assert_equal(true, game.good_guess?(choice))
+			guess = "p"
+			assert_equal(true, game.good_guess?(guess))
 		end
 
 		def test_for_incorrect_letter_returns_false_on_good_guess
 			game = Hangman.new("superman")
-			choice = "z"
-			assert_equal(false, game.good_guess?(choice))
+			guess = "z"
+			assert_equal(false, game.good_guess?(guess))
 		end
 
 		def test_for_guessed_letters_sorted_into_array
@@ -55,25 +55,45 @@ class TestHangman < Minitest::Test
 
 		def test_update_spaces_with_correct_guessed_letter
 			game = Hangman.new("superman")
-			choice = "p"
-			assert_equal("__p_____", game.insert_letter(choice))
+			guess = "p"
+			assert_equal("__p_____", game.insert_letter(guess))
 		end
 
 		def test_update_multiple_spaces_with_multiple_correct_guess
 			game = Hangman.new("mississippi")
-			choice = "s"
-			assert_equal("__ss_ss____", game.insert_letter(choice))
+			guess = "s"
+			assert_equal("__ss_ss____", game.insert_letter(guess))
 		end
 
 		def test_do_not_update_board_with_incorrect_guess
 			game = Hangman.new("dog")
-			choice = "z"
-			assert_equal("___", game.insert_letter(choice))
+			guess = "z"
+			assert_equal("___", game.insert_letter(guess))
 		end
 
 		def test_bad_guess_takes_chance_away
 			game = Hangman.new("dog")
-			choice = "z"
-			assert_equal(9, game.bad_guess(choice))
+			guess = "z"
+			assert_equal(9, game.bad_guess(guess))
+		end
+
+		# def test_loser_if_guesses_used_up
+		# 	game = Hangman.new("dog")
+		# 	game.bad_guesses = 1
+		# 	guess = "b"
+		# 	assert_equal(true, game.loser?)
+		# end
+
+		# def test_winner_if_all_letters_guessed_correctly
+		# 	game = Hangman.new("dog")
+		# 	game.spaces = "dog"
+		# 	assert_equal(true, game.winner?)
+		# end
+
+		def test_good_guess_does_not_take_away_guess
+			game = Hangman.new("dog")
+			game.bad_guesses = 1
+			guess = "d"
+			assert_equal(1, game.good_guess?(guess))
 		end
 end
