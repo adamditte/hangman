@@ -76,7 +76,18 @@ class TestHangman < Minitest::Test
 			guess = "z"
 			assert_equal(9, game.bad_guess(guess))
 		end
+		
+		def test_show_board_returns_string_with_spaces
+			game = Hangman.new("dragon")
+			game.spaces = ("dr__on")
+			assert_equal("d r _ _ o n", game.show_board)
+		end
 
+		def test_winner_if_all_letters_guessed_correctly
+			game = Hangman.new("dragon")
+			game.spaces = ("dragon")
+			assert_equal(true, game.winner?)
+		end
 		# def test_loser_if_guesses_used_up
 		# 	game = Hangman.new("dog")
 		# 	game.bad_guesses = 1
@@ -90,10 +101,11 @@ class TestHangman < Minitest::Test
 		# 	assert_equal(true, game.winner?)
 		# end
 
-		def test_good_guess_does_not_take_away_guess
-			game = Hangman.new("dog")
-			game.bad_guesses = 1
-			guess = "d"
-			assert_equal(1, game.good_guess?(guess))
-		end
+		# def test_good_guess_does_not_take_away_guess
+		# 	game = Hangman.new("dog")
+		# 	game.bad_guesses = 1
+		# 	guess = "d"
+		# 	assert_equal(1, game.good_guess?(guess))
+		# end
+
 end

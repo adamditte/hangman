@@ -30,36 +30,36 @@ class Hangman
 			correct 
 	end
 
-		def insert_letter(guess)
-		(0...@word.length).zip(@word.scan(/\w/)) do |index,letter|
-			  letter == guess ? @spaces[index] = letter : false
-			end
-			@spaces
+	def insert_letter(guess)
+	(0...@word.length).zip(@word.scan(/\w/)) do |index,letter|
+		  letter == guess ? @spaces[index] = letter : false
 		end
+		@spaces
+	end
 
-		def show_guessed_letters
-			@used_letters.sort.join(", ")
-		end
+	def show_guessed_letters
+		@used_letters.sort.join(", ")
+	end
 
-		def show_board
-			@spaces.scan(/_|\w/).join(" ")
-		end
-			
-		def make_move(guess)
-			update_guessed(guess)
-			if good_guess?(guess)
-				insert_letter(guess)
-			else
-				bad_guess
-			end
-		end
+	def show_board
+		@spaces.scan(/_|\w/).join(' ')
+	end
 		
-		def loser?
-			@bad_guesses == 0
+	def make_move(guess)
+		update_letters(guess)
+		if good_guess?(guess)
+			insert_letter(guess)
+		else
+			bad_guess
 		end
+	end
+	
+	def loser?
+		@bad_guesses == 0
+	end
 
-		def winner?
-			@word == @spaces
-		end
+	def winner?
+		@word == @spaces
+	end
 
 end
