@@ -17,6 +17,14 @@ class Hangman2
         @guessed_letters << guess
     end
 
+    def good_guess(guess)
+        correct = false
+            if word.include?(guess)
+                correct = true
+            end
+        correct
+    end
+
     def update_blanks(guess)
         i = 0
         word.length.times do
@@ -38,7 +46,7 @@ class Hangman2
       blanks == word
     end
 
-    def loser?(bad_guess)
-      chances == 0
+    def loser?
+        @chances == 0       
     end
 end
