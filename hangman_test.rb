@@ -88,6 +88,13 @@ class TestHangman < Minitest::Test
 			game.spaces = ("dragon")
 			assert_equal(true, game.winner?)
 		end
+
+		def test_loser_if_guesses_used_up
+			game = Hangman.new("dog")
+			@bad_guesses = 1
+			make_move("b")
+			assert_equal(true, game.loser?)
+		end
 		# def test_loser_if_guesses_used_up
 		# 	game = Hangman.new("dog")
 		# 	game.bad_guesses = 1
