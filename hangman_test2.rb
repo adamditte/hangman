@@ -57,8 +57,8 @@ class TestHangman2 < Minitest::Test
 
     def test_for_chance_lost_on_bad_guess
         game = Hangman2.new("beer")
-        guess = "z"
-        assert_equal(6, game.bad_guess(guess))
+        game.bad_guess("z")
+        assert_equal(6,game.chances)
     end
 
     def test_for_chances_to_zero_if_one_left
@@ -85,6 +85,12 @@ class TestHangman2 < Minitest::Test
         game = Hangman2.new("beer")
         guess = "z"
         assert_equal(false, game.good_guess(guess))
+    end
+
+    def test_chances_do_not_decrease_with_good_guess
+        game = Hangman2.new("beer")
+        game.bad_guess("b")
+        assert_equal(7, game.chances)
     end
 end
 
