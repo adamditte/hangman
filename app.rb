@@ -1,5 +1,9 @@
 require 'sinatra'
 require_relative 'hangman2.rb'
+require 'csv'
+
+CSV.open("records.csv", "a") do |csv|
+end
 
 enable :sessions
 
@@ -39,6 +43,7 @@ post '/choice' do
 	    session[:play].choose_letter(choice)
         
 		    if session[:play].winner?
+				write_to_csv(session[:player_name],session[:play].word, :chances_left.chances)
                 redirect '/winner'
 		    elsif 
 			    session[:play].loser?
@@ -62,3 +67,8 @@ get '/loser' do
 	erb :loser, :locals => { :keyword => keyword}
 end
 
+def write_to_csv(name, keyword, chances_left)
+	CSV.open("records.csv", "a") do |csv|
+	csv << ["#{name}" + "," + "#{keyword}" + "#{chances_left}"]
+end
+end	
