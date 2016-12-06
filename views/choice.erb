@@ -1,0 +1,8 @@
+<center><h2> Somehow, you've managed to get this far --> <%=show_board%></h2><br>
+<h2> These are all the letters you've dribbled out --> <%=show_guessed_letters%></h2><br>
+<h2> You have <%=chances_left%> chances left to guess the word!!</h2><br>
+<h3>Please enter a valid letter that has not been picked yet.</h3>
+<form method="post" action="choice">
+	<input type="text" name="choice" pattern="[A-Za-z]" maxlength="1" autofocus="autofocus" required>
+	<input type="submit">
+</form>

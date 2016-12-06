@@ -46,8 +46,10 @@ class TestHangman2 < Minitest::Test
 
     def test_winner_if_all_letters_guessed_match_word
         game = Hangman2.new("beer")
-        # game.winner?("beer")
-        assert_equal(true, game.winner?("beer"))
+        game.update_blanks("b")
+        game.update_blanks("e")
+        game.update_blanks("r")
+        assert_equal(true, game.winner?)
     end
 
     def test_for_number_of_chances_at_beginning_of_game
@@ -64,8 +66,8 @@ class TestHangman2 < Minitest::Test
     def test_for_chances_to_zero_if_one_left
         game = Hangman2.new("beer")
         game.chances = 1
-        guess = "z"
-        assert_equal(0, game.bad_guess(guess))
+        game.bad_guess("z")
+        assert_equal(0, game.chances)
     end
 
     def test_for_loser_if_all_chances_gone
@@ -78,19 +80,31 @@ class TestHangman2 < Minitest::Test
     def test_for_good_guess
         game = Hangman2.new("beer")
         guess = "b"
-        assert_equal(true, game.good_guess(guess))
+        assert_equal(true, game.good_guess?(guess))
     end
 
-    def test_for_false_on_wrong_good_guess
+    def test_for_false_on_wrong_good_guess?
         game = Hangman2.new("beer")
         guess = "z"
-        assert_equal(false, game.good_guess(guess))
+        assert_equal(false, game.good_guess?(guess))
     end
 
     def test_chances_do_not_decrease_with_good_guess
         game = Hangman2.new("beer")
         game.bad_guess("b")
         assert_equal(7, game.chances)
+    end
+
+    def test_for_game_run_with_good_guess
+        game = Hangman2.new("beer")
+        game.choose_letter("b")
+        assert_equal("b___", game.blanks)
+    end
+
+    def test_for_game_run_with_bad_guess
+        game = Hangman2.new("beer")
+        game.choose_letter("z")
+        assert_equal(6, game.chances)
     end
 end
 

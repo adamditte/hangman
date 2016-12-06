@@ -17,12 +17,8 @@ class Hangman2
         @guessed_letters << guess
     end
 
-    def good_guess(guess)
-        correct = false
-            if word.include?(guess)
-                correct = true
-            end
-        correct
+    def good_guess?(guess)
+        word_include?(guess) == true
     end
 
     def update_blanks(guess)
@@ -35,6 +31,14 @@ class Hangman2
         end
     end
 
+    def show_board
+        @blanks.scan(/_|\w/).join(' ')
+    end
+
+    def show_guessed_letters
+        @guessed_letters.sort.join(", ")
+    end
+
     def bad_guess(guess)
         if word_include?(guess) == false
           @chances -= 1
@@ -42,8 +46,17 @@ class Hangman2
           chances
     end
 
-    def winner?(blanks)
-      blanks == word
+    def choose_letter(guess)
+        make_guess(guess)
+        if good_guess?(guess)
+            update_blanks(guess)
+        else
+            bad_guess(guess)
+        end
+    end
+
+    def winner?
+      @blanks == word
     end
 
     def loser?
