@@ -6,7 +6,12 @@ enable :sessions
 get'/' do
     session[:play] = nil
 
-    erb :game_word
+    erb :players
+end
+
+post '/player_name' do
+	session[:player_name] = params[:players]
+	erb :game_word, :locals => { :player_name => session[:player_name]}
 end
 
 post '/setup' do
