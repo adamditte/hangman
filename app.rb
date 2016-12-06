@@ -43,7 +43,7 @@ post '/choice' do
 	    session[:play].choose_letter(choice)
         
 		    if session[:play].winner?
-				write_to_csv(session[:player_name],session[:play].word, :chances_left.chances)
+				write_to_csv(session[:player_name],session[:play].word, session[:play].chances)
                 redirect '/winner'
 		    elsif 
 			    session[:play].loser?
@@ -67,8 +67,8 @@ get '/loser' do
 	erb :loser, :locals => { :keyword => keyword}
 end
 
-def write_to_csv(name, keyword, chances_left)
-	CSV.open("records.csv", "a") do |csv|
-	csv << ["#{name}" + "," + "#{keyword}" + "#{chances_left}"]
+def write_to_csv(name, keyword, chances)
+	CSV.open("records.csv") do |csv|
+	csv << ["#{name}" + "," + "#{keyword}", "," + "#{chances}"]
 end
 end	
