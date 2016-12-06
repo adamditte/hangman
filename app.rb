@@ -26,7 +26,7 @@ get '/choice' do
 	show_board = session[:play].show_board
 	show_guessed_letters = session[:play].show_guessed_letters
 	
-	erb :choice, :locals => { :chances_left => chances_left, :show_board => show_board, :show_guessed_letters => show_guessed_letters}
+	erb :choice, :locals => { :player_name =>session[:player_name], :chances_left => chances_left, :show_board => show_board, :show_guessed_letters => show_guessed_letters}
 
 end
 
